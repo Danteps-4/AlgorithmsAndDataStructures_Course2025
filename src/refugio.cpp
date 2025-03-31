@@ -81,6 +81,11 @@ bool Refugio::consumeResource(const std::string& resource, float amount)
     return false;
 }
 
+bool Refugio::isSafeFaction(const std::string& faccion)
+{
+    return false;
+}
+
 void Refugio::registerVisitant(const std::string& nombre, const std::string& faccion)
 {
     auto visitante = new Visitante(nombre, faccion);

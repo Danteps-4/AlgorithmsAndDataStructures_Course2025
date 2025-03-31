@@ -83,6 +83,13 @@ public:
     bool consumeResource(const std::string& resource, float amount);
 
     /**
+     * @brief Verifica que una faccion sea segura
+     * @param faccion Faccion del visitante
+     * @return True si es segura, false si no es segura
+    */
+    bool isSafeFaction(const std::string& faccion);
+
+    /**
      * @brief Registra un visitante en el refugio (nombre y facción)
      * @param nombre Nombre del visitante
      * @param faccion Facción del visitante
