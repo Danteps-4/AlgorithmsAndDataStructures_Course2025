@@ -40,7 +40,12 @@ public:
 
     ~LinkedList()
     {
-        throw std::runtime_error("Not implemented yet");
+        while (head != nullptr)
+        {
+            auto aux = head;
+            head = head->next;
+            delete aux;
+        }
     }
 
     /**
@@ -50,8 +55,28 @@ public:
      */
     void push_front(const TData& value)
     {
-        throw std::runtime_error("Not implemented yet");
+        auto node = new ListNode<TData>(value);
+        node->next = head;
+        head = node;
     }
+
+    /**
+     * @brief Elimina el primer elemento al inicio de la lista
+     *
+     */
+    void remove_first()
+    {
+        if (head->next == nullptr)
+        {
+            delete head;
+        } else
+        {
+            auto aux = head;
+            head = head->next;
+            delete aux;
+        }
+    }
+
 
     /**
     * @brief Remueve un elemento de la lista dada su posición
@@ -60,7 +85,29 @@ public:
     */
     void remove_at(size_t position)
     {
-        throw std::runtime_error("Not implemented yet");
+        if (head == nullptr)
+        {
+            return;  // La lista esta vacia
+        }
+
+        if (position == 0)
+        {
+            remove_first();  // Se elimina el primero
+        } else
+        {
+            ListNode<TData>* temporal = head;
+            for (size_t i = 0; i < position - 1; i++)
+            {
+                temporal = temporal->next;
+            }
+            if (temporal == nullptr || temporal->next == nullptr)
+            {
+                return;  // Posicion no valida
+            }
+            auto a_eliminar = temporal->next;
+            temporal->next = temporal->next->next;
+            delete a_eliminar;
+        }
     }
 
     /**
@@ -151,7 +198,14 @@ public:
      */
     void push_front(const TData& value)
     {
-        throw std::runtime_error("Not implemented yet");
+        auto new_node = new DoublyListNode<TData>(value);
+        new_node->prev = nullptr;
+        new_node->next = head;
+        if (head != nullptr)
+        {
+            head->prev = new_node;
+        }
+        head = new_node;
     }
 
     /**
@@ -161,7 +215,44 @@ public:
      */
     void push_back(const TData& value)
     {
-        throw std::runtime_error("Not implemented yet");
+        auto new_node = new DoublyListNode<TData>(value);
+        if (head == nullptr)
+        {
+            head = new_node;
+        } else
+        {
+            DoublyListNode<TData>* temporal = head;
+            while (temporal->next != nullptr)
+            {
+                temporal = temporal->next;
+
+            }
+            temporal->next = new_node;
+            new_node->prev = temporal;
+        }
+    }
+
+    /**
+    * @brief Remueve el primer elemento de la lista
+    *
+    */
+    void remove_first()
+    {
+        if (head == nullptr)
+        {
+            return;
+        }
+        if (head->next == nullptr)
+        {
+            delete head;
+            head = nullptr;
+            return;
+        }
+
+        auto aux = head;
+        head = head->next;
+        head->prev = nullptr;
+        delete aux;
     }
 
     /**
@@ -171,7 +262,35 @@ public:
     */
     void remove_at(size_t position)
     {
-        throw std::runtime_error("Not implemented yet");
+        if (head == nullptr)
+        {
+            return; // La lista esta vacia
+        }
+
+        if (position == 0)
+        {
+            remove_first(); // Se remueve el primer elemento
+            return;
+        }
+
+        DoublyListNode<TData>* temporal = head;
+        for (size_t i = 0; i < position && temporal != nullptr; i++)
+        {
+            temporal = temporal->next;
+        }
+        if (temporal == nullptr)
+        {
+            return;
+        }
+        if (temporal->prev != nullptr)
+        {
+            temporal->prev->next = temporal->next;
+        }
+        if (temporal->next != nullptr)
+        {
+            temporal->next->prev = temporal->prev;
+        }
+        delete temporal;
     }
 
     /**

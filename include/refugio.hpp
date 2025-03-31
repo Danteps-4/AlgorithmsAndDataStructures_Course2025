@@ -20,13 +20,17 @@ class Refugio : public EntidadGenerica
     struct Visitante {
         std::string nombre;
         std::string faccion;
+
+        Visitante(std::string nombre, std::string faccion): nombre(std::move(nombre)), faccion(std::move(faccion))
+        {
+        }
     };
 private:
     float m_defense;                                          ///< Nivel de defensa del refugio
     float m_attack;                                           ///< Capacidad de ataque del refugio
     wrapperVector<std::string> m_refugees;                    ///< Lista de moradores dentro del refugio
     wrapperVector<std::pair<std::string, float>> m_resources; ///< Lista de recursos con su cantidad
-    DoublyLinkedList<Visitante>* m_visitants;                  ///< Lista de visitantes registrados
+    DoublyLinkedList<Visitante> m_visitants;                  ///< Lista de visitantes registrados
 
     void printRecursive(DoublyListNode<Visitante>* mNode);
 

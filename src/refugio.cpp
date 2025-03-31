@@ -83,15 +83,14 @@ bool Refugio::consumeResource(const std::string& resource, float amount)
 
 void Refugio::registerVisitant(const std::string& nombre, const std::string& faccion)
 {
-    // if (!isSafeFaction(faccion)) {
-    throw std::runtime_error("Not implemented yet");
-    // }
+    auto visitante = new Visitante(nombre, faccion);
+    m_visitants.push_front(*visitante);
 }
 
 void Refugio::showVisits()
 {
     std::cout << "📖 Registro de visitas al Refugio " << m_name << ":\n";
-    printRecursive(m_visitants->get_head());
+    printRecursive(m_visitants.get_head());
 }
 
 void Refugio::printRecursive(DoublyListNode<Visitante>* mNode)
@@ -108,5 +107,14 @@ void Refugio::printRecursive(DoublyListNode<Visitante>* mNode)
 
 bool Refugio::hasFactionVisited(const std::string& faccion) const
 {
-    throw std::runtime_error("Not implemented yet");
+    auto aux = m_visitants.get_head();
+    while (aux != nullptr)
+    {
+        if (faccion == aux->data.faccion)
+        {
+            return true;
+        }
+        aux = aux->next;
+    }
+    return false;
 }
