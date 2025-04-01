@@ -2,11 +2,13 @@
 #define REFUGIO_HPP
 
 #include "entidadGenerica.hpp"
+#include "list.hpp"
 #include "wrapperVector.hpp"
 #include <iostream>
 #include <string>
 #include <utility>
-#include "list.hpp"
+
+#include <unordered_map>
 
 /**
  * @class Refugio
@@ -25,6 +27,7 @@ class Refugio : public EntidadGenerica
         {
         }
     };
+
 private:
     float m_defense;                                          ///< Nivel de defensa del refugio
     float m_attack;                                           ///< Capacidad de ataque del refugio
@@ -32,9 +35,25 @@ private:
     wrapperVector<std::pair<std::string, float>> m_resources; ///< Lista de recursos con su cantidad
     DoublyLinkedList<Visitante> m_visitants;                  ///< Lista de visitantes registrados
 
+
     void printRecursive(DoublyListNode<Visitante>* mNode);
 
 public:
+    enum class Faccion      // Enum para Facciones
+    {
+        Humanos,
+        Elfos,
+        Orcos,
+        Mutantes,
+    };
+    // Unordered map para guardar las facciones y si es hostil(true) o si es segura(false)
+    std::unordered_map<Faccion, bool> m_facciones = {
+        {Faccion::Humanos, false},
+        {Faccion::Elfos, false},
+        {Faccion::Orcos, true},
+        {Faccion::Mutantes, true},
+    };
+
     /**
      * @brief Constructor del refugio
      *
@@ -83,18 +102,25 @@ public:
     bool consumeResource(const std::string& resource, float amount);
 
     /**
+     * @brief Retorna el nombre en string de una faccion
+     * @param faccion Faccion a retornar string
+     * @return String del nombre de la faccion
+     */
+    std::string getFactionName(Faccion faccion) const;
+
+    /**
      * @brief Verifica que una faccion sea segura
      * @param faccion Faccion del visitante
      * @return True si es segura, false si no es segura
-    */
-    bool isSafeFaction(const std::string& faccion);
+     */
+    bool isSafeFaction(Faccion faccion);
 
     /**
      * @brief Registra un visitante en el refugio (nombre y facción)
      * @param nombre Nombre del visitante
      * @param faccion Facción del visitante
      */
-    void registerVisitant(const std::string& nombre, const std::string& faccion);
+    void registerVisitant(const std::string& nombre, Faccion faccion);
 
     /**
      * @brief Muestra todos los visitantes registrados

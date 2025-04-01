@@ -10,6 +10,15 @@
 
 int main()
 {
+
+   Refugio refugio("Refugio 33", 100, 200);
+    Refugio::Faccion faccion = Refugio::Faccion::Humanos;
+    Refugio::Faccion faccion2 = Refugio::Faccion::Mutantes;
+    std::cout << refugio.isSafeFaction(faccion) << std::endl;
+    refugio.registerVisitant("Dante", faccion);
+    refugio.registerVisitant("Jorge", faccion2);
+    refugio.showVisits();
+
     std::cout << "Bienvenida/o sistema de control 'Refugio 33'" << std::endl;
     // Crea un nuevo jugador
     PlayerInfo player;

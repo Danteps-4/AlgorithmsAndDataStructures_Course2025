@@ -81,15 +81,29 @@ bool Refugio::consumeResource(const std::string& resource, float amount)
     return false;
 }
 
-bool Refugio::isSafeFaction(const std::string& faccion)
+std::string Refugio::getFactionName(Faccion faccion) const
 {
-    return false;
+    switch (faccion)
+    {
+        case Faccion::Humanos: return "Humanos";
+        case Faccion::Elfos: return "Elfos";
+        case Faccion::Mutantes: return "Mutantes";
+        case Faccion::Orcos: return "Orcos";
+    }
 }
 
-void Refugio::registerVisitant(const std::string& nombre, const std::string& faccion)
+bool Refugio::isSafeFaction(Faccion faccion)
 {
-    auto visitante = new Visitante(nombre, faccion);
-    m_visitants.push_front(*visitante);
+    return !m_facciones[faccion];
+}
+
+void Refugio::registerVisitant(const std::string& nombre, Faccion faccion)
+{
+    if (isSafeFaction(faccion))
+    {
+        auto visitante = new Visitante(nombre, getFactionName(faccion));
+        m_visitants.push_front(*visitante);
+    }
 }
 
 void Refugio::showVisits()
