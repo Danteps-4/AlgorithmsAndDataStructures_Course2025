@@ -24,8 +24,7 @@ class Refugio : public EntidadGenerica
         std::string faccion;
 
         Visitante(std::string nombre, std::string faccion): nombre(std::move(nombre)), faccion(std::move(faccion))
-        {
-        }
+        {}
     };
 
 private:
