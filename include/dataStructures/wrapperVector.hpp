@@ -8,6 +8,7 @@
 #include <cstddef>
 #include <utility>
 #include <algorithm>
+#include <string>
 
 auto constexpr INIT_CAPACITY {100}; //< Capacidad inicial del vector
 
