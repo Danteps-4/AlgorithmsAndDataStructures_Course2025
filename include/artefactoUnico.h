@@ -22,7 +22,7 @@ public:
     /**
      * @brief Ejecuta una acción específica del artefacto
      */
-    void doAction() const override;
+    void doAction() const;
 };
 
 

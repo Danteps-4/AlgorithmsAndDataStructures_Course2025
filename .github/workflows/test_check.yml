@@ -1,0 +1,44 @@
+# .github/workflows/build-and-test.yml
+name: Build & Test with VCPKG + GTest
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build valgrind
+
+      - name: Setup VCPKG
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git
+          ./vcpkg/bootstrap-vcpkg.sh
+
+      - name: Configure CMake
+        run: |
+          mkdir build
+          cd build
+          cmake .. \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake -DENABLE_TESTS=ON \
+
+      - name: Build project
+        run: |
+          cd build
+          cmake --build .
+
+      - name: Run Tests
+        run: |
+          cd build
+          valgrind --track-origins=yes --leak-check=full --error-exitcode=1 ctest --output-on-failure

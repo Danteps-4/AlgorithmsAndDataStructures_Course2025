@@ -55,9 +55,9 @@ public:
      */
     void push_front(const TData& value)
     {
-        auto node = new ListNode<TData>(value);
-        node->next = head;
-        head = node;
+        auto nuevo = new ListNode<TData>(value);
+        nuevo->next = head;
+        head = nuevo;
     }
 
     /**
@@ -87,27 +87,38 @@ public:
     {
         if (head == nullptr)
         {
-            return;  // La lista esta vacia
+            return;
         }
 
         if (position == 0)
         {
-            remove_first();  // Se elimina el primero
-        } else
-        {
-            ListNode<TData>* temporal = head;
-            for (size_t i = 0; i < position - 1; i++)
-            {
-                temporal = temporal->next;
-            }
-            if (temporal == nullptr || temporal->next == nullptr)
-            {
-                return;  // Posicion no valida
-            }
-            auto a_eliminar = temporal->next;
-            temporal->next = temporal->next->next;
-            delete a_eliminar;
+            auto temp = head;
+            head = head->next;
+            delete temp;
+            return;
         }
+
+        // Para cualquier otra posicion necesitamos mantener un puntero al nodo anterior
+        auto prev = head;
+        auto current = head->next;
+        size_t current_position = 1;
+
+        // Avanzamos hasta encontrar la posicion o llegar al final de la lista
+        while (current != nullptr && current_position < position)
+        {
+            prev = current;
+            current = current->next;
+            current_position++;
+        }
+
+        // Si current es nullptr quiere decir que la posicion especifica es mas grande que la lista,
+        // no se encuentra la posicion
+        if (current == nullptr) return;
+
+        // Hacemos que el nodo anterior apunte al nodo siguiente actual
+        prev->next = current->next;
+
+        delete current;
     }
 
     /**
@@ -116,7 +127,45 @@ public:
     */
     ListNode<TData>* take(size_t startPosition, size_t nElements)
     {
-        throw std::runtime_error("Not implemented yet");
+        // Si la lista esta vacia retornamos nullptr
+        if (head == nullptr)
+        {
+            return nullptr;
+        }
+
+        // Buscamos el nodo de inicio
+        ListNode<TData>* current = head;
+        size_t current_position = 0;
+
+        // Avanzamos hasta la posicion de inicio
+        while (current != nullptr && current_position < startPosition)
+        {
+            current = current->next;
+            current_position++;
+        }
+
+        // Si current es nullptr, la posicion esta fuera de rango
+        if (current == nullptr) return nullptr;
+
+        // Creamos el primer nodo de la nueva lista
+        ListNode<TData>* new_head = new ListNode<TData>(current->data);
+        ListNode<TData>* new_current = new_head;
+
+        // Avanzamos al siguiente nodo en la lista original
+        current = current->next;
+
+        // Copiamos los siguientes mElements-1 nodos (ya copiamos 1)
+        for (size_t i = 1; i < nElements && current != nullptr; i++)
+        {
+            // Creamos un nuevo nodo con el valor actual
+            new_current->next = new ListNode<TData>(current->data);
+
+            // Avanzamos en ambas listas
+            new_current = new_current->next;
+            current = current->next;
+        }
+
+        return new_head;
     }
 
     /**
@@ -198,14 +247,9 @@ public:
      */
     void push_front(const TData& value)
     {
-        auto new_node = new DoublyListNode<TData>(value);
-        new_node->prev = nullptr;
-        new_node->next = head;
-        if (head != nullptr)
-        {
-            head->prev = new_node;
-        }
-        head = new_node;
+        auto nuevo = new DoublyListNode<TData>(value);
+        nuevo->next = head;
+        head = nuevo;
     }
 
     /**
@@ -262,35 +306,57 @@ public:
     */
     void remove_at(size_t position)
     {
+        // Si la lista esta vacia no hay nada que eliminar
         if (head == nullptr)
         {
-            return; // La lista esta vacia
+            return;
         }
 
+        // Caso que el nodo a eliminar sea el primero (nodo 0)
         if (position == 0)
         {
-            remove_first(); // Se remueve el primer elemento
+            DoublyListNode<TData>* temp = head;
+            head = head->next;
+
+            // Si hay mas nodos despues del primero actualizamos el prev del nuevo head
+            if (head != nullptr)
+            {
+                head->prev = nullptr;
+            }
+
+            delete temp;
             return;
         }
 
-        DoublyListNode<TData>* temporal = head;
-        for (size_t i = 0; i < position && temporal != nullptr; i++)
+        // Para cualquier otra posicion recorremos la lista, hacemos un contador para llevar track de
+        // la posicion en la lista
+        DoublyListNode<TData>* current = head;
+        size_t current_position = 0;
+
+        while (current != nullptr && current_position < position)
         {
-            temporal = temporal->next;
+            current = current->next;
+            current_position++;
         }
-        if (temporal == nullptr)
+
+        // Si current es nullptr quiere decir que la posicion especifica es mas grande que la lista,
+        // no se encuentra la posicion
+        if (current == nullptr) return;
+
+        // current es el nodo que queremos eliminar, conectamos sus
+        // nodos adyacentes
+        if (current->prev != nullptr)
         {
-            return;
+            current->prev->next = current->next;
         }
-        if (temporal->prev != nullptr)
+
+        if (current->next != nullptr)
         {
-            temporal->prev->next = temporal->next;
+            current->next->prev = current->prev;
         }
-        if (temporal->next != nullptr)
-        {
-            temporal->next->prev = temporal->prev;
-        }
-        delete temporal;
+
+        delete current;
+
     }
 
     /**
@@ -300,7 +366,21 @@ public:
     */
     void copy_list(const DoublyLinkedList& other)
     {
-        throw std::runtime_error("Not implemented yet");
+        // PREGUNTAR: Borramos los nodos actuales?
+        while (head != nullptr)
+        {
+            auto temporalNode = head;
+            head = head->next;
+            delete temporalNode;
+        }
+
+        // Copiamos los nodos de la otra lista con push_bakc()
+        auto current = other.get_head();
+        while (current != nullptr)
+        {
+            push_back(current->data);
+            current = current->next;
+        }
     }
 
     /**

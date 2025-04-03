@@ -38,7 +38,7 @@ public:
     /**
      * @brief Ejecuta una acción específica del personaje
      */
-    void doAction() const override;
+    void doAction() const;
 
     /**
      * @brief Verifica si un objeto existe en el inventario

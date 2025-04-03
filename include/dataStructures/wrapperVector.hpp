@@ -42,6 +42,7 @@ private:
 
         delete[] m_data;
         m_data = newData;
+        m_capacity = newCapacity; // <-- Faltaba esta linea
     }
 
 public:
