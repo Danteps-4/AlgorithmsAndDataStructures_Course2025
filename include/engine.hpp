@@ -126,6 +126,7 @@ private:
     RandomEventGenerator m_randomGenerator; //< Generador de eventos aleatorios
     EngineData::GameConfig m_gameConfig;    //< Configuración del juego
     std::unique_ptr<Refugio> m_shelter;     //< Refugio del jugador
+    // Queve<Evento> m_eventos_pendientes;     //< Eventos pendientes del jugador
 
     /**
      * @brief: Operaciones que puede realizar el jugador
@@ -139,6 +140,8 @@ private:
         FIGHT,       //< Lucha contra un enemigo
         EXIT,        //< Salir del juego
         SAVE,        //< Guardar el juego
+        HISTORY,     //< Muestra las ultimas acciones
+        CHECK,     //< Muestra las eventos pendientes
         UNKNOWN      //< Operación desconocida
     };
 
@@ -148,6 +151,8 @@ private:
                                                                    {'x', Operation::EXPLORE},
                                                                    {'f', Operation::FIGHT},
                                                                    {'s', Operation::SAVE},
+                                                                   {'h', Operation::HISTORY},
+                                                                   {'k', Operation::CHECK},
                                                                    {'q', Operation::EXIT}};
 };
 

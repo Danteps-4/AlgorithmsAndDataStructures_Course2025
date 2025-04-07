@@ -8,6 +8,9 @@ auto constexpr HELP_FILE {"assets/help.txt"}; //< Nombre del archivo de ayuda
 
 int main()
 {
+
+
+
     std::cout << GREEN << "Cargando:" << RESET;
 
     for (int i = 0; i <= 100; i += 10)

@@ -34,45 +34,26 @@ public:
     /**
      * @brief Constructor por defecto
      */
-    Stack()
-        : m_top(nullptr)
-        , m_size(0)
-    {
-    }
+    Stack();
 
     /**
      * @brief Destructor: libera todos los nodos
      */
-    ~Stack()
-    {
-        throw std::underflow_error("Stack is empty");
-    }
+    ~Stack();
 
     /**
      * @brief Agrega un elemento en la cima de la pila
      *
      * @param value Valor a insertar
      */
-    void push(const TData& value)
-    {
-        Node* newNode = new Node(value, m_top);
-        m_top = newNode;
-        ++m_size;
-    }
+    void push(const TData& value);
 
     /**
      * @brief Elimina el elemento superior de la pila
      *
      * @throws std::underflow_error si la pila está vacía
      */
-    void pop()
-    {
-        if (isEmpty())
-        {
-            throw std::underflow_error("Stack is empty");
-        }
-        throw std::underflow_error("Stack is empty");
-    }
+    void pop();
 
     /**
      * @brief Devuelve una referencia al elemento superior (mutable)
@@ -80,10 +61,7 @@ public:
      * @return TData& referencia al valor
      * @throws std::underflow_error si la pila está vacía
      */
-    TData& top()
-    {
-        throw std::underflow_error("Stack is empty");
-    }
+    TData& top();
 
     /**
      * @brief Devuelve una referencia constante al elemento superior
@@ -91,10 +69,7 @@ public:
      * @return const TData& referencia constante al valor
      * @throws std::underflow_error si la pila está vacía
      */
-    const TData& top() const
-    {
-        throw std::underflow_error("Stack is empty");
-    }
+    const TData& top() const;
 
     /**
      * @brief Verifica si la pila está vacía
@@ -102,20 +77,14 @@ public:
      * @return true si no hay elementos
      * @return false si hay al menos un elemento
      */
-    bool isEmpty() const
-    {
-        return m_top == nullptr;
-    }
+    bool isEmpty() const;
 
     /**
      * @brief Devuelve la cantidad de elementos en la pila
      *
      * @return size_t tamaño de la pila
      */
-    size_t size() const
-    {
-        return m_size;
-    }
+    size_t size() const;
 };
 
 #endif // STACK_HPP
