@@ -8,6 +8,7 @@
 #include "refugio.hpp"
 #include "queue.hpp"
 #include "stack.hpp"
+#include "engineData.hpp"
 
 #include <chrono>
 #include <filesystem>
