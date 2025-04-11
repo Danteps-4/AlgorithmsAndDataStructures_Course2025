@@ -42,7 +42,7 @@ public:
         std::cout << " - Artefactos disponibles:\n";
         for (const auto& item : m_stock)
         {
-            item->show();
+            item->showInfo();
         }
     }
 
@@ -62,13 +62,13 @@ public:
 
         for (auto it = m_stock.begin(); it != m_stock.end(); ++it)
         {
-            if ((*it)->nombre() == nombre)
-            {
-                std::cout << "💬 " << m_name << " >>> Excelente elección. Espero que lo uses bien." << std::endl;
-                auto item = *it;
-                m_stock.erase(it);
-                return item;
-            }
+//            if ((*it)->name() == nombre)
+//            {
+//                std::cout << "💬 " << m_name << " >>> Excelente elección. Espero que lo uses bien." << std::endl;
+//                auto item = *it;
+//                m_stock.erase(it);
+//                return item;
+//            }
         }
 
         std::cout << "💬 " << m_name << " >>> No tenemos ese artefacto en este momento." << std::endl;
@@ -86,9 +86,9 @@ public:
 private:
     void inicializarStock()
     {
-        m_stock.emplace_back(std::make_shared<ArtefactoUnico>("Detector de Radiación", "Herramienta", "Épico", 250.0));
-        m_stock.emplace_back(std::make_shared<ArtefactoUnico>("Pistola Láser Táctica", "Arma", "Legendaria", 400.0));
-        m_stock.emplace_back(std::make_shared<ArtefactoUnico>("Batería de Fusión", "Energía", "Rara", 320.0));
+        //m_stock.emplace_back(std::make_shared<ArtefactoUnico>("Detector de Radiación", "Herramienta", "Épico", 250.0));
+        //m_stock.emplace_back(std::make_shared<ArtefactoUnico>("Pistola Láser Táctica", "Arma", "Legendaria", 400.0));
+        //m_stock.emplace_back(std::make_shared<ArtefactoUnico>("Batería de Fusión", "Energía", "Rara", 320.0));
     }
 };
 

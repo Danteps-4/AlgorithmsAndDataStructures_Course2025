@@ -1,10 +1,14 @@
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
 
+#include "engineData.hpp"
+#include "evento.h"
 #include "gameSerializer.hpp"
 #include "randomEventGenerator.hpp"
 #include "refugio.hpp"
-#include "engineData.hpp"
+#include "queue.hpp"
+#include "stack.hpp"
+
 #include <chrono>
 #include <filesystem>
 #include <iostream>
@@ -122,11 +126,26 @@ private:
      */
     void loadConfig();
 
+    /**
+     * @brief Agrega un evento a la lista de eventos
+     *
+     * @param evento Evento a agregar
+     */
+    //void onNewEvent(const Evento& evento);
+
+    /**
+     * @brief Registra una accion a la lista de decisiones
+     *
+     * @param accion Accion a agregar
+     */
+    //void registerDecision(const std::string& accion);
+
     EngineData::PlayerInfo m_player;        //< Información del jugador
     RandomEventGenerator m_randomGenerator; //< Generador de eventos aleatorios
     EngineData::GameConfig m_gameConfig;    //< Configuración del juego
     std::unique_ptr<Refugio> m_shelter;     //< Refugio del jugador
-    // Queve<Evento> m_eventos_pendientes;     //< Eventos pendientes del jugador
+    //Queue<Evento> m_eventos_pendientes;     //< Eventos pendientes del jugador
+    //Stack<std::string> m_historial;         //< Historial de decisiones del jugador
 
     /**
      * @brief: Operaciones que puede realizar el jugador
@@ -141,7 +160,7 @@ private:
         EXIT,        //< Salir del juego
         SAVE,        //< Guardar el juego
         HISTORY,     //< Muestra las ultimas acciones
-        CHECK,     //< Muestra las eventos pendientes
+        CHECK,       //< Muestra las eventos pendientes
         UNKNOWN      //< Operación desconocida
     };
 
@@ -154,6 +173,6 @@ private:
                                                                    {'h', Operation::HISTORY},
                                                                    {'k', Operation::CHECK},
                                                                    {'q', Operation::EXIT}};
-};
+    };
 
 #endif // ENGINE_HPP

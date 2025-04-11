@@ -2,7 +2,9 @@
 // Created by Usuario on 07/04/2025.
 //
 
-#include "../include/dataStructures/stack.hpp"
+#include "dataStructures/stack.hpp"
+
+#include <iostream>
 
 template<typename TData>
 Stack<TData>::Stack():m_top(nullptr), m_size(0){}
@@ -58,11 +60,22 @@ const TData& Stack<TData>::top() const
 template<typename TData>
 bool Stack<TData>::isEmpty() const
 {
-    return m_top == nullptr;
+    return m_size == 0;
 }
 
 template<typename TData>
 size_t Stack<TData>::size() const
 {
     return m_size;
+}
+
+template<typename TData>
+void Stack<TData>::print() const
+{
+    auto temp = m_top;
+    while(temp != nullptr)
+    {
+        std::cout << temp->data << " ";
+        temp = temp->next;
+    }
 }

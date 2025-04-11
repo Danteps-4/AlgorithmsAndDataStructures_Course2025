@@ -2,7 +2,10 @@
 // Created by Usuario on 07/04/2025.
 //
 
-#include "../include/dataStructures/list.hpp"
+#include "dataStructures/list.hpp"
+#include "refugio.hpp"
+
+template class Queue<Evento>;
 
 template <typename TData>
 LinkedList<TData>::LinkedList(): head(nullptr){}
@@ -24,20 +27,6 @@ void LinkedList<TData>::push_front(const TData& value)
     auto nuevo = new ListNode<TData>(value);
     nuevo->next = head;
     head = nuevo;
-}
-
-template <typename TData>
-void LinkedList<TData>::remove_first()
-{
-    if (head->next == nullptr)
-    {
-        delete head;
-    } else
-    {
-        auto aux = head;
-        head = head->next;
-        delete aux;
-    }
 }
 
 template <typename TData>
@@ -172,7 +161,7 @@ void DoublyLinkedList<TData>::push_back(const TData& value)
         head = new_node;
     } else
     {
-        DoublyListNode<TData>* temporal = head;
+        auto temporal = get_head();
         while (temporal->next != nullptr)
         {
             temporal = temporal->next;
@@ -181,26 +170,6 @@ void DoublyLinkedList<TData>::push_back(const TData& value)
         temporal->next = new_node;
         new_node->prev = temporal;
     }
-}
-
-template <typename TData>
-void DoublyLinkedList<TData>::remove_first()
-{
-    if (head == nullptr)
-    {
-        return;
-    }
-    if (head->next == nullptr)
-    {
-        delete head;
-        head = nullptr;
-        return;
-    }
-
-    auto aux = head;
-    head = head->next;
-    head->prev = nullptr;
-    delete aux;
 }
 
 template <typename TData>

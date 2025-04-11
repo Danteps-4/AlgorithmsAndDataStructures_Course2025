@@ -1,5 +1,7 @@
 #include "engine.hpp"
 
+#include "evento.h"
+
 #include <fstream>
 
 void Engine::start()
@@ -159,10 +161,12 @@ void Engine::interactiveConsole()
                 case Operation::HISTORY:
                     std::cout << "Historial de decisiones..." << std::endl;
                     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                    //m_historial.print();
                     break;
                 case Operation::CHECK:
                     std::cout << "Eventos pendientes..." << std::endl;
                     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+                    //m_eventos_pendientes.print();
                     break;
                 default: std::cout << "Operación desconocida" << std::endl; break;
             }
@@ -400,3 +404,15 @@ visitantsRate=0.10
 
     std::cout << GREEN << "[SUCCESS] Configuración cargada correctamente desde el servidor de VAULT\n" << RESET;
 }
+
+
+// void Engine::onNewEvent(const Evento& evento)
+// {
+//     m_eventos_pendientes.enqueue(evento);
+// }
+//
+//
+// void Engine::registerDecision(const std::string& accion)
+// {
+//     m_historial.push(accion);
+// }

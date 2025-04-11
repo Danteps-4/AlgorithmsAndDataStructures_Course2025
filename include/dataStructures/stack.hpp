@@ -85,6 +85,11 @@ public:
      * @return size_t tamaño de la pila
      */
     size_t size() const;
+
+    /**
+     * @brief Printea los valores del stack
+     */
+    void print() const;
 };
 
 #endif // STACK_HPP

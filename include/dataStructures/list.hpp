@@ -45,13 +45,6 @@ public:
     void push_front(const TData& value);
 
     /**
-     * @brief Elimina el primer elemento al inicio de la lista
-     *
-     */
-    void remove_first();
-
-
-    /**
     * @brief Remueve un elemento de la lista dada su posición
     *
     * @param position Posición del elemento a remover
@@ -126,12 +119,6 @@ public:
      * @param value Valor a insertar
      */
     void push_back(const TData& value);
-
-    /**
-    * @brief Remueve el primer elemento de la lista
-    *
-    */
-    void remove_first();
 
     /**
     * @brief Remueve un elemento de la lista dada su posición
