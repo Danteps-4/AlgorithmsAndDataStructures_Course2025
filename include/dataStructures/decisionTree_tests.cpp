@@ -36,5 +36,7 @@ int main()
     std::cout << "Recorrido despues de eliminar: " << std::endl;
     tree->recorrerPreorden();
 
+    tree->~DecisionTree();
+
     return 0;
 }
