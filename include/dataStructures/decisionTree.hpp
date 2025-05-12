@@ -2,8 +2,8 @@
 // Created by Usuario on 08/05/2025.
 //
 
-#ifndef DECISIONTREE_H
-#define DECISIONTREE_H
+#ifndef DECISIONTREE_HPP
+#define DECISIONTREE_HPP
 #include <iostream>
 
 /**
@@ -138,7 +138,7 @@ private:
         if (decision < nodo->decision)
         {
             eliminarNodo(nodo->izquierda, decision);
-        }else if (decision > nodo->decision)
+        }else if (nodo->decision < decision)
         {
             eliminarNodo(nodo->derecha, decision);
         }else
@@ -187,4 +187,4 @@ private:
     }
 };
 
-#endif //DECISIONTREE_H
+#endif //DECISIONTREE_HPP

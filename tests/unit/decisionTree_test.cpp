@@ -2,7 +2,7 @@
 // Created by Usuario on 10/05/2025.
 //
 
-#include "decisionTree.h"
+#include "decisionTree.hpp"
 #include <gtest/gtest.h>
 #include <string>
 
